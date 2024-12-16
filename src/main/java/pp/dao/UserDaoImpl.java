@@ -4,7 +4,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pp.model.User;
 
@@ -26,7 +25,7 @@ public class UserDaoImpl implements UserDao {
 
     @Transactional
     @Override
-    public User findById(int id) {
+    public User findById(long id) {
         return em.find(User.class, id);
     }
 
@@ -39,7 +38,7 @@ public class UserDaoImpl implements UserDao {
 
     @Transactional
     @Override
-    public void delete(int id) {
+    public void deleteByID(long id) {
         em.remove(em.find(User.class, id));
     }
 
