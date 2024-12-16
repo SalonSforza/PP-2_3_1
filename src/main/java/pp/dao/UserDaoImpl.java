@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao {
 
     @Transactional
     @Override
-    public void save(User user) {
+    public void persist(User user) {
         em.persist(user);
     }
 

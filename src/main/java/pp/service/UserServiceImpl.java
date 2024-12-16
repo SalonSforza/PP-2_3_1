@@ -1,6 +1,5 @@
 package pp.service;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pp.dao.UserDao;
@@ -17,8 +16,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user) {
-        userDao.save(user);
+    public void persist(User user) {
+        userDao.persist(user);
     }
 
     @Override
