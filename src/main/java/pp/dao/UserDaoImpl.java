@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import pp.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -25,8 +26,8 @@ public class UserDaoImpl implements UserDao {
 
     @Transactional
     @Override
-    public User findById(long id) {
-        return em.find(User.class, id);
+    public Optional <User> findById(long id) {
+        return Optional.ofNullable(em.find(User.class, id));
     }
 
     @Transactional
@@ -39,7 +40,8 @@ public class UserDaoImpl implements UserDao {
     @Transactional
     @Override
     public void deleteByID(long id) {
-        em.remove(em.find(User.class, id));
+        Optional<User> u = findById(id);
+        u.ifPresent(x -> em.remove(x));
     }
 
     @Transactional

@@ -17,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/users")
     public String showAll(Model model) {
         model.addAttribute("users", userService.findAll());
         return "allUsers";
@@ -37,21 +37,18 @@ public class UserController {
     @GetMapping("/delete")
     public String deleteUser(@RequestParam("id") long id) {
         userService.deleteById(id);
-        return "redirect:/";
+        return "redirect:/users";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/user")
     public String editUser(@RequestParam ("id") long id, Model model) {
         model.addAttribute("user", userService.findById(id));
         return "editUser";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/user")
     public String updateUser(@ModelAttribute("user") User user,@RequestParam ("id") long id) {
-        User u = userService.findById(id);
-        u.setName(user.getName());
-        u.setAge(user.getAge());
-        userService.update(user);
+        userService.update(user,id);
         return "redirect:/";
     }
 

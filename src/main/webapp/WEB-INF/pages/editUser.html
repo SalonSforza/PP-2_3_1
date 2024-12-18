@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title> Update user</title>
+  <title>Update User</title>
 </head>
 <body>
-<form th:action="@{edit(id=${user.getId()})}" method="post" th:object="${user}">
-   <label for="name">Enter name</label>
-  <input type="text" th:field="*{name}" id="name"/>
+<form th:action="@{/user(id=${user.get().getId()})}" method="post" th:object="${user}">
+  <label for="name">Enter name</label>
+  <input type="text" th:field="*{name}" id="name" required>
   <br>
   <label for="age">Enter age</label>
-  <input type="text" th:field="*{age}" id="age">
+  <input type="number" th:field="*{age}" id="age" required>
   <br>
   <input type="submit" value="Update">
 </form>
