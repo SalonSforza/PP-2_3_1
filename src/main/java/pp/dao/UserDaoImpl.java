@@ -26,8 +26,8 @@ public class UserDaoImpl implements UserDao {
 
     @Transactional
     @Override
-    public Optional <User> findById(long id) {
-        return Optional.ofNullable(em.find(User.class, id));
+    public User findById(long id) {
+        return em.find(User.class, id);
     }
 
     @Transactional
@@ -40,8 +40,7 @@ public class UserDaoImpl implements UserDao {
     @Transactional
     @Override
     public void deleteByID(long id) {
-        Optional<User> u = findById(id);
-        u.ifPresent(x -> em.remove(x));
+       em.remove(em.find(User.class, id));
     }
 
     @Transactional

@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findById(long id) {
-        return userDao.findById(id);
+        return Optional.ofNullable(userDao.findById(id));
     }
 
     @Override
@@ -35,12 +35,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteById(long id) {
-        userDao.deleteByID(id);
+        Optional<User> user = findById(id);
+        if(user.isPresent()) {
+            userDao.deleteByID(id);
+        }
     }
 
     @Override
     public void update(User user, long id) {
-        Optional<User> u = userDao.findById(id);
+        Optional<User> u = findById(id);
         u.ifPresent(x -> x.setName(user.getName()));
         u.ifPresent(x -> x.setAge(user.getAge()));
         userDao.update(user);
