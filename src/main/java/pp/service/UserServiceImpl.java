@@ -1,5 +1,6 @@
 package pp.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pp.dao.UserDao;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
@@ -44,8 +46,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(User user, long id) {
         Optional<User> u = findById(id);
-        u.ifPresent(x -> x.setName(user.getName()));
-        u.ifPresent(x -> x.setAge(user.getAge()));
+        u.ifPresent(x -> { x.setName(user.getName()); x.setAge(user.getAge()); });
         userDao.update(user);
     }
 }
